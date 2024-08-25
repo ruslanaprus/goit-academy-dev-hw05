@@ -1,0 +1,76 @@
+plugins {
+    id 'java'
+}
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+sourceSets {
+    jmh {
+        java {
+            srcDirs = ['src/jmh/java']
+        }
+        resources {
+            srcDirs = ['src/jmh/resources']
+        }
+    }
+}
+
+configurations {
+    jmhImplementation.extendsFrom(implementation)
+    jmhAnnotationProcessor.extendsFrom(annotationProcessor)
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    implementation 'org.slf4j:slf4j-api:2.0.16'
+    implementation 'ch.qos.logback:logback-classic:1.5.7'
+
+    jmhAnnotationProcessor 'org.openjdk.jmh:jmh-generator-annprocess:1.37'
+    jmhImplementation sourceSets.main.output
+    jmhImplementation 'org.openjdk.jmh:jmh-core:1.37'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+/*
+ * - - - -  BENCHMARKING  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ */
+task jmh(type: JavaExec) {
+    description = "Executes JMH performance tests for ${project.name}."
+    mainClass = 'org.openjdk.jmh.Main'
+
+    // Setting the classpath like this implicitly creates task dependencies on the 'classes' and 'jmhClasses' tasks.
+    classpath = sourceSets.jmh.runtimeClasspath
+
+    // The results of the full run are stored in build/reports/jmh/result.json
+    def resultFile = new File((File) project.reportsDir, 'jmh/result.json')
+
+    // Run gradlew jmhHelp to see all the options that can be set here
+    args '.*Benchmark'
+    args '-rf', 'json'
+    args '-rff', resultFile
+
+    doFirst {
+        // make sure build/reports/jmh directory exists
+        resultFile.parentFile.mkdirs()
+    }
+}
+
+tasks.named('jar') {
+    manifest {
+        attributes('Main-Class': 'org.example.NameApp')
+    }
+    archiveFileName = "myname.jar"
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
