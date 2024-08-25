@@ -7,9 +7,6 @@ public class FibonacciDynamic {
     private static Map<Integer, Long> memo = new HashMap<>();
 
     public static long solveFibonacci(int n) {
-        if (n < 0) {
-            throw new IllegalArgumentException("input can't be negative");
-        }
         if (n <= 1) {
             return n;
         }
