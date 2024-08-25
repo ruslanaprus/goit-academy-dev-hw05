@@ -66,9 +66,9 @@ task jmh(type: JavaExec) {
 
 tasks.named('jar') {
     manifest {
-        attributes('Main-Class': 'org.example.NameApp')
+        attributes('Main-Class': 'org.example.AppLauncher')
     }
-    archiveFileName = "myname.jar"
+    archiveFileName = "fibonacci.jar"
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     from {
         configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
