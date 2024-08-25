@@ -1,7 +1,8 @@
 package org.example.fibonacci;
 
-public class FibonacciIterative {
-    public static long solveFibonacci(int n) {
+public class FibonacciIterative implements FibonacciStrategy {
+    @Override
+    public long solveFibonacci(int n) {
         if (n <= 1) {
             return n;
         }

@@ -3,10 +3,11 @@ package org.example.fibonacci;
 import java.util.HashMap;
 import java.util.Map;
 
-public class FibonacciDynamic {
+public class FibonacciDynamic implements FibonacciStrategy {
     private static Map<Integer, Long> memo = new HashMap<>();
 
-    public static long solveFibonacci(int n) {
+    @Override
+    public long solveFibonacci(int n) {
         if (n <= 1) {
             return n;
         }

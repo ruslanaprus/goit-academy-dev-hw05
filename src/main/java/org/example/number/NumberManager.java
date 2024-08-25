@@ -1,13 +1,15 @@
 package org.example.number;
 
-public class NumberManager {
-    private final NumberGetter numberGetter;
+import org.example.input.NumberSource;
 
-    public NumberManager(NumberGetter numberGetter){
-        this.numberGetter = numberGetter;
+public class NumberManager {
+    private final NumberSource numberSource;
+
+    public NumberManager(NumberSource numberSource) {
+        this.numberSource = numberSource;
     }
 
-    public int getNumericValue(){
-        return numberGetter.get();
+    public int getNumericValue() {
+        return numberSource.getNumber();
     }
 }
