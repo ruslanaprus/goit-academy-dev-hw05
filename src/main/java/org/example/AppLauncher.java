@@ -12,15 +12,19 @@ public class AppLauncher {
     private static final Logger logger = LoggerFactory.getLogger(AppLauncher.class);
 
     public static void main(String[] args) {
-        NumberSource numberSource = new UserInputSource();
-        StrategySource strategySource = new UserInputSource();
+        try (UserInputSource inputSource = new UserInputSource()) {
+            NumberSource numberSource = inputSource;
+            StrategySource strategySource = inputSource;
 
-        NumberManager numberManager = new NumberManager(numberSource);
-        int number = numberManager.getNumericValue();
+            NumberManager numberManager = new NumberManager(numberSource);
+            int number = numberManager.getNumericValue();
 
-        FibonacciStrategy strategy = strategySource.getStrategy();
+            FibonacciStrategy strategy = strategySource.getStrategy();
 
-        launch(number, strategy);
+            launch(number, strategy);
+        } catch (Exception e) {
+            logger.error("An error occurred: {}", e.getMessage(), e);
+        }
     }
 
     public static void launch(int number, FibonacciStrategy strategy) {
