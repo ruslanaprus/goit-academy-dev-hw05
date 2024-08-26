@@ -1,11 +1,12 @@
 package org.example.fibonacci;
 
 import java.math.BigInteger;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.WeakHashMap;
 
 public class FibonacciDynamic implements FibonacciStrategy {
-    private static Map<Integer, BigInteger> memo = new HashMap<>();
+
+    private static Map<Integer, BigInteger> memo = new WeakHashMap<>();
 
     @Override
     public BigInteger solveFibonacci(int n) {
@@ -13,11 +14,20 @@ public class FibonacciDynamic implements FibonacciStrategy {
             return BigInteger.valueOf(n);
         }
 
-        if (!memo.containsKey(n)) {
-            BigInteger fib = solveFibonacci(n - 1).add(solveFibonacci(n - 2));
-            memo.put(n, fib);
+        if (memo.containsKey(n)) {
+            return memo.get(n);
         }
 
-        return memo.get(n);
+        BigInteger prev = BigInteger.ZERO;
+        BigInteger curr = BigInteger.ONE;
+
+        for (int i = 2; i <= n; i++) {
+            BigInteger next = prev.add(curr);
+            prev = curr;
+            curr = next;
+            memo.put(i, curr);
+        }
+
+        return curr;
     }
 }
