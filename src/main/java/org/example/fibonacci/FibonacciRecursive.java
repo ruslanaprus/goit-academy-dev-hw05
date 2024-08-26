@@ -1,12 +1,14 @@
 package org.example.fibonacci;
 
+import java.math.BigInteger;
+
 public class FibonacciRecursive implements FibonacciStrategy {
     @Override
-    public long solveFibonacci(int n) {
+    public BigInteger solveFibonacci(int n) {
         if (n <= 1) {
-            return n;
+            return BigInteger.valueOf(n);
         }
 
-        return solveFibonacci(n - 1) + solveFibonacci(n - 2);
+        return solveFibonacci(n - 1).add(solveFibonacci(n - 2));
     }
 }

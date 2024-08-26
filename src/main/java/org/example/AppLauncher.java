@@ -8,6 +8,8 @@ import org.example.number.NumberManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.math.BigInteger;
+
 public class AppLauncher {
     private static final Logger logger = LoggerFactory.getLogger(AppLauncher.class);
 
@@ -29,7 +31,7 @@ public class AppLauncher {
 
     public static void launch(int number, FibonacciStrategy strategy) {
         try {
-            long result = strategy.solveFibonacci(number);
+            BigInteger result = strategy.solveFibonacci(number);
             logger.info("Using {}: The value in Fibonacci sequence at the {}-th position is {}",
                     strategy.getClass().getSimpleName(), number, result);
         } catch (IllegalStateException | IllegalArgumentException e) {

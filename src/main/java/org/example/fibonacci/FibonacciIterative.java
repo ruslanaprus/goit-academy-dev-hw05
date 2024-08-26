@@ -1,16 +1,19 @@
 package org.example.fibonacci;
 
+import java.math.BigInteger;
+
 public class FibonacciIterative implements FibonacciStrategy {
     @Override
-    public long solveFibonacci(int n) {
+    public BigInteger solveFibonacci(int n) {
         if (n <= 1) {
-            return n;
+            return BigInteger.valueOf(n);
         }
 
-        long prev1 = 0, prev2 = 1;
+        BigInteger prev1 = BigInteger.ZERO;
+        BigInteger prev2 = BigInteger.ONE;
 
         for (int i = 2; i <= n; i++) {
-            long current = prev1 + prev2;
+            BigInteger current = prev1.add(prev2);
             prev1 = prev2;
             prev2 = current;
         }
