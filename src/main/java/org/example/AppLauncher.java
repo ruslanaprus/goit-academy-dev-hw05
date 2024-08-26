@@ -26,7 +26,7 @@ public class AppLauncher {
             long stopTime = System.nanoTime();
             logger.info("It took {} nanoseconds to calculate it", (stopTime - startTime));
         } catch (Exception e) {
-            logger.error("An error occurred: {}", e.getMessage(), e);
+            logger.error("An unexpected error occurred: {}", e.getMessage(), e);
         }
     }
 
@@ -36,7 +36,7 @@ public class AppLauncher {
             logger.info("Using {}: The value in Fibonacci sequence at the {}-th position is {}",
                     strategy.getClass().getSimpleName(), number, result);
         } catch (IllegalStateException | IllegalArgumentException e) {
-            logger.error("Error: {}", e.getMessage(), e);
+            logger.error("An error occurred during Fibonacci calculation: {}", e.getMessage(), e);
         }
     }
 }
