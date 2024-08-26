@@ -2,13 +2,12 @@ package org.example.fibonacci;
 
 import java.lang.ref.WeakReference;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.math.MathContext;
 import java.util.HashMap;
 import java.util.Map;
 
-public class FibonacciDynamic implements FibonacciStrategy {
-//    private static final Map<Integer, WeakReference<BigInteger>> memo = new HashMap<>(); // space comp - O(n), due to the use of WeakReference, the actual space might be less because some entries could be garbage collected
+public class FibonacciDynamic implements FibonacciStrategy<BigDecimal> {
+    //    private static final Map<Integer, WeakReference<BigInteger>> memo = new HashMap<>(); // space comp - O(n), due to the use of WeakReference, the actual space might be less because some entries could be garbage collected
 //
 //    @Override
 //    public BigInteger solveFibonacci(int n) {
@@ -36,9 +35,10 @@ public class FibonacciDynamic implements FibonacciStrategy {
 //
 //        return current;
 //    }
-private static final Map<Integer, WeakReference<BigDecimal>> memo = new HashMap<>();
+    private static final Map<Integer, WeakReference<BigDecimal>> memo = new HashMap<>();
     private static final MathContext MATH_CONTEXT = new MathContext(100); // Adjust precision as needed
 
+    @Override
     public BigDecimal solveFibonacci(int n) {
         if (n <= 1) {
             return BigDecimal.valueOf(n);
@@ -61,6 +61,11 @@ private static final Map<Integer, WeakReference<BigDecimal>> memo = new HashMap<
         memo.put(n, new WeakReference<>(result));
 
         return result;
+    }
+
+    @Override
+    public Class<BigDecimal> getType() {
+        return BigDecimal.class;
     }
 
     private void power(BigDecimal[][] F, int n) {

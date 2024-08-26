@@ -22,7 +22,7 @@ public class AppLauncher {
             NumberManager numberManager = new NumberManager(numberSource);
             int number = numberManager.getNumericValue();
 
-            FibonacciStrategy strategy = strategySource.getStrategy();
+            FibonacciStrategy<?> strategy = strategySource.getStrategy();
 
             long startTime = System.nanoTime();
             launch(number, strategy);
@@ -33,9 +33,9 @@ public class AppLauncher {
         }
     }
 
-    public static void launch(int number, FibonacciStrategy strategy) {
+    public static <T extends Number> void launch(int number, FibonacciStrategy<T> strategy) {
         try {
-            BigDecimal result = strategy.solveFibonacci(number);
+            T result = strategy.solveFibonacci(number);
             logger.info("Using {}: The value in Fibonacci sequence at the {}-th position is {}",
                     strategy.getClass().getSimpleName(), number, result);
         } catch (IllegalStateException | IllegalArgumentException e) {

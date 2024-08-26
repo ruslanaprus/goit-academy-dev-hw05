@@ -1,24 +1,28 @@
 package org.example.fibonacci;
 
-import java.math.BigDecimal;
 import java.math.BigInteger;
 
-public class FibonacciIterative implements FibonacciStrategy {
+public class FibonacciIterative implements FibonacciStrategy<BigInteger> {
     @Override
-    public BigDecimal solveFibonacci(int n) {
+    public BigInteger solveFibonacci(int n) {
         if (n <= 1) {
-            return BigDecimal.valueOf(n);
+            return BigInteger.valueOf(n);
         }
 
-        BigDecimal prev1 = BigDecimal.ZERO;
-        BigDecimal prev2 = BigDecimal.ONE;
+        BigInteger prev1 = BigInteger.ZERO;
+        BigInteger prev2 = BigInteger.ONE;
 
         for (int i = 2; i <= n; i++) {
-            BigDecimal current = prev1.add(prev2);
+            BigInteger current = prev1.add(prev2);
             prev1 = prev2;
             prev2 = current;
         }
 
         return prev2;
+    }
+
+    @Override
+    public Class<BigInteger> getType() {
+        return BigInteger.class;
     }
 }
