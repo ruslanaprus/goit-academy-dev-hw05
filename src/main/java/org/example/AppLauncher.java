@@ -8,6 +8,7 @@ import org.example.number.NumberManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 
 public class AppLauncher {
@@ -23,7 +24,10 @@ public class AppLauncher {
 
             FibonacciStrategy strategy = strategySource.getStrategy();
 
+            long startTime = System.nanoTime();
             launch(number, strategy);
+            long stopTime = System.nanoTime();
+            logger.info("It took {} nanoseconds to calculate it", (stopTime - startTime));
         } catch (Exception e) {
             logger.error("An error occurred: {}", e.getMessage(), e);
         }
@@ -31,7 +35,7 @@ public class AppLauncher {
 
     public static void launch(int number, FibonacciStrategy strategy) {
         try {
-            BigInteger result = strategy.solveFibonacci(number);
+            BigDecimal result = strategy.solveFibonacci(number);
             logger.info("Using {}: The value in Fibonacci sequence at the {}-th position is {}",
                     strategy.getClass().getSimpleName(), number, result);
         } catch (IllegalStateException | IllegalArgumentException e) {
