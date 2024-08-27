@@ -43,7 +43,7 @@ test {
 /*
  * - - - -  BENCHMARKING  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
  */
-task jmh(type: JavaExec) {
+tasks.register('jmh', JavaExec) {
     description = "Executes JMH performance tests for ${project.name}."
     mainClass = 'org.openjdk.jmh.Main'
 
@@ -51,12 +51,16 @@ task jmh(type: JavaExec) {
     classpath = sourceSets.jmh.runtimeClasspath
 
     // The results of the full run are stored in build/reports/jmh/result.json
-    def resultFile = new File((File) project.reportsDir, 'jmh/result.json')
+//    def resultFile = new File((File) project.reportsDir, 'jmh/result.json')
+    def resultFile = new File((File) project.reportsDir, 'jmh/result.csv')
 
     // Run gradlew jmhHelp to see all the options that can be set here
     args '.*Benchmark'
-    args '-rf', 'json'
+//    args '-rf', 'json'
+    args '-rf', 'csv'
     args '-rff', resultFile
+    args '-prof', 'gc'       // Garbage Collection profiler
+    args '-prof', 'comp'     // JIT Compiler profiler
 
     doFirst {
         // make sure build/reports/jmh directory exists
