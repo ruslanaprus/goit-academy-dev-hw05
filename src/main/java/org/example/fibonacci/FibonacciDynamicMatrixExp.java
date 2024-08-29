@@ -1,11 +1,11 @@
 package org.example.fibonacci;
 
 import java.math.BigInteger;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class FibonacciDynamicMatrixExp implements FibonacciStrategy<BigInteger> {
-    private static final Map<Integer, BigInteger> memo = new ConcurrentHashMap<>(); // space comp for the memoization map is O(1)
+    private static final Map<Integer, BigInteger> memo = new HashMap<>(); // space comp for the memoization map is O(1)
 
     @Override
     public BigInteger solveFibonacci(int n) {
@@ -64,7 +64,6 @@ public class FibonacciDynamicMatrixExp implements FibonacciStrategy<BigInteger> 
 //    }
 //
 //    private BigInteger fibonacci(int n) {
-//        // Initialize base cases
 //        memo.put(0, BigInteger.ZERO);
 //        memo.put(1, BigInteger.ONE);
 //
