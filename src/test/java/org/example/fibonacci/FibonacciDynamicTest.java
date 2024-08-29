@@ -57,9 +57,12 @@ class FibonacciDynamicTest {
     @Test
     @DisplayName("Fibonacci:6=8")
     void testSolveFibonacciSix() {
-        int input = 6;
+//        int input = 6;
+        int input = 100;
         FibonacciDynamic fibonacci = new FibonacciDynamic();
-        BigInteger result = fibonacci.solveFibonacci(input, TimeUnit.NANOSECONDS);
-        assertEquals(BigInteger.valueOf(8), result);
+        BigInteger result = fibonacci.solveFibonacci(input, TimeUnit.MILLISECONDS);
+//        assertEquals(BigInteger.valueOf(8), result);
+        String bob = "354224848179261915075";
+        assertEquals(new BigInteger(bob), result);
     }
 }
