@@ -5,6 +5,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -80,7 +81,7 @@ class NumberValidatorTest {
 
     @Test
     @DisplayName("Test with default logger and invalid input")
-    void testDefaultLoggerWithInvalidInput() {
+    void testLoggerWithInvalidInput() {
         // Create a mock logger and inject it into the NumberValidator
         Logger mockLogger = mock(Logger.class);
         NumberValidator defaultValidator = new NumberValidator(mockLogger);  // Using default constructor with mock
@@ -96,4 +97,29 @@ class NumberValidatorTest {
         String expectedLogMessage = "Number out of range. Number should be between {} and {}";
         assertEquals(expectedLogMessage, captor.getValue(), "Expected log message not found");
     }
+
+    @Test
+    @DisplayName("Test with default logger and invalid input")
+    void testDefaultLoggerWithInvalidInput() {
+        // Capture the logging output from the default logger
+//        Logger defaultLogger = LoggerFactory.getLogger(NumberValidator.class);
+        NumberValidator defaultLoggerValidator = new NumberValidator();  // Use default logger
+
+        // Redirect the output to capture it
+        ByteArrayOutputStream logOutput = new ByteArrayOutputStream();
+        PrintStream originalSystemOut = System.out;
+        System.setOut(new PrintStream(logOutput));
+
+        // Perform an invalid number check
+        assertFalse(defaultLoggerValidator.isValidNumber(MAX_VALUE + 1), "Number above MAX_VALUE should be invalid");
+
+        // Restore the original System.out
+        System.setOut(originalSystemOut);
+
+        // Verify that the log message is present in the captured output
+        String expectedLogMessage = String.format("Number out of range. Number should be between %d and %d", MIN_VALUE, MAX_VALUE);
+        String logOutputStr = logOutput.toString();
+        assertTrue(logOutputStr.contains(expectedLogMessage), "Expected log message not found");
+    }
+
 }
