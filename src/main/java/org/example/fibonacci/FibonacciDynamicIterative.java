@@ -4,7 +4,7 @@ import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
 
-public class FibonacciDynamic implements FibonacciStrategy<BigInteger> {
+public class FibonacciDynamicIterative implements FibonacciStrategy<BigInteger> {
     private static final Map<Integer, BigInteger> memo = new HashMap<>(); // space comp - O(1)
 
     @Override
