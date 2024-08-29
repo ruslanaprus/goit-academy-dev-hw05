@@ -1,28 +1,26 @@
 package org.example.fibonacci;
 
-import java.lang.ref.WeakReference;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.HashMap;
 import java.util.Map;
 
 public class FibonacciMatrixExponentiation implements FibonacciStrategy<BigDecimal> {
-    private static final Map<Integer, WeakReference<BigDecimal>> memo = new HashMap<>();
+    private static final Map<Integer, BigDecimal> memo = new HashMap<>(); // space comp - O(1)
     private static final MathContext MATH_CONTEXT = new MathContext(100);
 
-    @Override
     public BigDecimal solveFibonacci(int n) {
         if (n <= 1) {
             return BigDecimal.valueOf(n);
         }
 
-        WeakReference<BigDecimal> weakReference = memo.get(n);
-        BigDecimal result = (weakReference != null) ? weakReference.get() : null;
+        BigDecimal result = memo.get(n);  // time comp - O(1)
 
         if (result != null) {
             return result;
         }
 
+        // space comp - O(1)
         BigDecimal[][] F = {
                 {BigDecimal.ONE, BigDecimal.ONE},
                 {BigDecimal.ONE, BigDecimal.ZERO}
@@ -30,12 +28,11 @@ public class FibonacciMatrixExponentiation implements FibonacciStrategy<BigDecim
         power(F, n - 1);
 
         result = F[0][0];
-        memo.put(n, new WeakReference<>(result));
+        memo.put(n, result);
 
         return result;
     }
 
-    @Override
     public Class<BigDecimal> getType() {
         return BigDecimal.class;
     }
@@ -47,7 +44,7 @@ public class FibonacciMatrixExponentiation implements FibonacciStrategy<BigDecim
         };
 
         for (int i = 2; i <= n; i++) {
-            multiply(F, M);
+            multiply(F, M); // time comp - O(n)
         }
     }
 

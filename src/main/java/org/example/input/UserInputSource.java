@@ -58,6 +58,19 @@ public class UserInputSource implements NumberSource, StrategySource, AutoClosea
         return FibonacciStrategyType.values()[choice - 1].getStrategy();
     }
 
+    public boolean askToContinue() {
+        String response;
+        do {
+            logger.info("Do you want to enter another number and choose another strategy? (y/n): ");
+            response = scanner.next();
+            if (!response.equalsIgnoreCase("y") && !response.equalsIgnoreCase("n")) {
+                logger.warn("Invalid input. Please enter 'y' for yes or 'n' for no.");
+            }
+        } while (!response.equalsIgnoreCase("y") && !response.equalsIgnoreCase("n"));
+
+        return response.equalsIgnoreCase("y");
+    }
+
     @Override
     public void close() {
         if (scanner != null) {

@@ -1,34 +1,40 @@
 package org.example.fibonacci;
 
 public enum FibonacciStrategyType {
-    RECURSIVE("Recursive") {
+    RECURSIVE("Recursive - Best suited for calculating Fibonacci numbers up to 50") {
         @Override
         public FibonacciStrategy getStrategy() {
             return new FibonacciRecursive();
         }
     },
-    ITERATIVE("Iterative") {
+    ITERATIVE("Iterative - Efficient for calculating Fibonacci numbers up to 5 million") {
         @Override
         public FibonacciStrategy getStrategy() {
             return new FibonacciIterative();
         }
     },
-    DYNAMIC("Dynamic Programming") {
+    DYNAMIC("Dynamic Programming - Efficient for calculating Fibonacci numbers up to 5 million") {
         @Override
         public FibonacciStrategy getStrategy() {
             return new FibonacciDynamic();
         }
     },
-    MATRIX_EXPONENTIATION("Matrix exponentiation (uses BigDecimal, really good for large numbers)") {
+    DYNAMIC_MATRIX_EXPONENTIATION("Dynamic programming with matrix exponentiation - Suitable for calculating Fibonacci numbers up to approximately 100 million)") {
         @Override
         public FibonacciStrategy getStrategy() {
-            return new FibonacciMatrixExponentiation();
+            return new FibonacciDynamicMatrixExp();
         }
     },
-    RECURSIVE_MATRIX_EXPONENTIATION("Recursive matrix exponentiation (good for relatively small numbers: up to around 100_000_000)") {
+    RECURSIVE_MATRIX_EXPONENTIATION("Recursive matrix exponentiation - Suitable for calculating Fibonacci numbers up to approximately 100 million") {
         @Override
         public FibonacciStrategy getStrategy() {
             return new FibonacciRecursiveMatrixExponentiation();
+        }
+    },
+    MATRIX_EXPONENTIATION("Matrix exponentiation - Highly efficient for calculating large Fibonacci numbers up to the maximum integer value") {
+        @Override
+        public FibonacciStrategy getStrategy() {
+            return new FibonacciMatrixExponentiation();
         }
     };
 
