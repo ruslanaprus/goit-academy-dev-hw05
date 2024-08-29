@@ -13,18 +13,24 @@ public class AppLauncher {
 
     public static void main(String[] args) {
         try (UserInputSource inputSource = new UserInputSource()) {
-            NumberSource numberSource = inputSource;
-            StrategySource strategySource = inputSource;
+            boolean continueLoop = true;
 
-            NumberManager numberManager = new NumberManager(numberSource);
-            int number = numberManager.getNumericValue();
+            while (continueLoop) {
+                NumberSource numberSource = inputSource;
+                StrategySource strategySource = inputSource;
 
-            FibonacciStrategy<?> strategy = strategySource.getStrategy();
+                NumberManager numberManager = new NumberManager(numberSource);
+                int number = numberManager.getNumericValue();
 
-            long startTime = System.nanoTime();
-            launch(number, strategy);
-            long stopTime = System.nanoTime();
-            logger.info("It took {} nanoseconds to calculate it", (stopTime - startTime));
+                FibonacciStrategy<?> strategy = strategySource.getStrategy();
+
+                long startTime = System.nanoTime();
+                launch(number, strategy);
+                long stopTime = System.nanoTime();
+                logger.info("It took {} nanoseconds to calculate it", (stopTime - startTime));
+
+                continueLoop = inputSource.askToContinue();
+            }
         } catch (Exception e) {
             logger.error("An unexpected error occurred: {}", e.getMessage(), e);
         }
