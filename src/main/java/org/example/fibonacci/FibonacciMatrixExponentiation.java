@@ -14,12 +14,13 @@ public class FibonacciMatrixExponentiation implements FibonacciStrategy<BigDecim
             return BigDecimal.valueOf(n);
         }
 
-        BigDecimal result = memo.get(n);
+        BigDecimal result = memo.get(n);  // time comp - O(1)
 
         if (result != null) {
             return result;
         }
 
+        // space comp - O(1)
         BigDecimal[][] F = {
                 {BigDecimal.ONE, BigDecimal.ONE},
                 {BigDecimal.ONE, BigDecimal.ZERO}
@@ -43,7 +44,7 @@ public class FibonacciMatrixExponentiation implements FibonacciStrategy<BigDecim
         };
 
         for (int i = 2; i <= n; i++) {
-            multiply(F, M);
+            multiply(F, M); // time comp - O(n)
         }
     }
 

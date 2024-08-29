@@ -23,7 +23,7 @@ public class FibonacciDynamic implements FibonacciStrategy<BigInteger> {
         BigInteger current = BigInteger.ONE; // space comp - O(1)
 
         for (int i = 2; i <= n; i++) { // time comp - O(n) - time complexity is dominated by the loop (O(n))
-            BigInteger next = prev.add(current); // space comp - O(1)
+            BigInteger next = prev.add(current);
             prev = current;
             current = next;
         }
