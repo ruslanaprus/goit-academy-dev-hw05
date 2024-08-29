@@ -41,16 +41,37 @@ class NumberValidatorTest {
     }
 
     @Test
-    @DisplayName("Number below minimum value")
+    @DisplayName("Number just below minimum value")
     void testInvalidNumberBelowMinValue() {
         assertFalse(numberValidator.isValidNumber(MIN_VALUE - 1), "Number below MIN_VALUE should be invalid");
         verify(logger).warn("Number out of range. Number should be between {} and {}", MIN_VALUE, MAX_VALUE);
     }
 
     @Test
-    @DisplayName("Number above maximum value")
+    @DisplayName("Number just above maximum value")
     void testInvalidNumberAboveMaxValue() {
         assertFalse(numberValidator.isValidNumber(MAX_VALUE + 1), "Number above MAX_VALUE should be invalid");
+        verify(logger).warn("Number out of range. Number should be between {} and {}", MIN_VALUE, MAX_VALUE);
+    }
+
+    @Test
+    @DisplayName("Number far below minimum value")
+    void testInvalidNumberFarBelowMinValue() {
+        assertFalse(numberValidator.isValidNumber(MIN_VALUE - 1000), "Number far below MIN_VALUE should be invalid");
+        verify(logger).warn("Number out of range. Number should be between {} and {}", MIN_VALUE, MAX_VALUE);
+    }
+
+    @Test
+    @DisplayName("Number far above maximum value")
+    void testInvalidNumberFarAboveMaxValue() {
+        assertFalse(numberValidator.isValidNumber(MAX_VALUE + 1000), "Number far above MAX_VALUE should be invalid");
+        verify(logger).warn("Number out of range. Number should be between {} and {}", MIN_VALUE, MAX_VALUE);
+    }
+
+    @Test
+    @DisplayName("Number is Integer.MIN_VALUE")
+    void testInvalidNumberAtIntegerMinValue() {
+        assertFalse(numberValidator.isValidNumber(Integer.MIN_VALUE), "Integer.MIN_VALUE should be invalid");
         verify(logger).warn("Number out of range. Number should be between {} and {}", MIN_VALUE, MAX_VALUE);
     }
 }
