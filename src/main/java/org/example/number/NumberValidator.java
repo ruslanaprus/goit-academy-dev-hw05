@@ -7,7 +7,18 @@ import static org.example.number.Constants.MAX_VALUE;
 import static org.example.number.Constants.MIN_VALUE;
 
 public class NumberValidator {
-    private static final Logger logger = LoggerFactory.getLogger(NumberValidator.class);
+    private static final Logger defaultLogger = LoggerFactory.getLogger(NumberValidator.class);
+    private final Logger logger;
+
+    // Constructor to allow injecting a logger, with default fallback
+    public NumberValidator() {
+        this(defaultLogger);
+    }
+
+    // Constructor to inject a custom logger for testing purposes
+    public NumberValidator(Logger logger) {
+        this.logger = logger;
+    }
 
     public boolean isValidNumber(int number) {
         if (number >= MIN_VALUE && number <= MAX_VALUE) {
