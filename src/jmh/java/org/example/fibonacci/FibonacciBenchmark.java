@@ -7,9 +7,9 @@ import java.math.BigInteger;
 import java.util.concurrent.TimeUnit;
 
 @OutputTimeUnit(TimeUnit.MILLISECONDS)
-@Fork(value = 2, jvmArgs = {"-Xms2G", "-Xmx2G"}) // will fork the benchmark twice, with each fork running in its own JVM instance with 2GB of heap memory
-@Warmup(iterations = 3)
-@Measurement(iterations = 3)
+@Fork(value = 1, jvmArgs = {"-Xms2G", "-Xmx2G"}) // will fork the benchmark twice, with each fork running in its own JVM instance with 2GB of heap memory
+@Warmup(iterations = 2)
+@Measurement(iterations = 2)
 @State(Scope.Thread)
 public class FibonacciBenchmark {
 
