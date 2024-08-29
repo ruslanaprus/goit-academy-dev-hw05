@@ -1,18 +1,21 @@
 package org.example.fibonacci;
 
-import java.math.BigInteger;
+import java.math.BigDecimal;
+import java.math.MathContext;
 
-public class FibonacciRecursiveMatrixExponentiation implements FibonacciStrategy<BigInteger> {
+public class FibonacciRecursiveMatrixExponentiation implements FibonacciStrategy<BigDecimal> {
+    private static final MathContext MATH_CONTEXT = new MathContext(1000);
+
     @Override
-    public BigInteger solveFibonacci(int n) {
+    public BigDecimal solveFibonacci(int n) {
         if (n <= 1) {
-            return BigInteger.valueOf(n);
+            return BigDecimal.valueOf(n);
         }
 
         // space comp - O(1)
-        BigInteger[][] F = {
-                {BigInteger.ONE, BigInteger.ONE},
-                {BigInteger.ONE, BigInteger.ZERO}
+        BigDecimal[][] F = {
+                {BigDecimal.ONE, BigDecimal.ONE},
+                {BigDecimal.ONE, BigDecimal.ZERO}
         };
 
         matrixPower(F, n - 1);
@@ -21,18 +24,18 @@ public class FibonacciRecursiveMatrixExponentiation implements FibonacciStrategy
     }
 
     @Override
-    public Class<BigInteger> getType() {
-        return BigInteger.class;
+    public Class<BigDecimal> getType() {
+        return BigDecimal.class;
     }
 
     // reduces the problem size by half in each recursive call, time comp - O(log n)
-    private void matrixPower(BigInteger[][] F, int n) {
+    private void matrixPower(BigDecimal[][] F, int n) {
         if (n == 1 || n == 0) return;
 
         // space comp - O(1)
-        BigInteger[][] M = {
-                {BigInteger.ONE, BigInteger.ONE},
-                {BigInteger.ONE, BigInteger.ZERO}
+        BigDecimal[][] M = {
+                {BigDecimal.ONE, BigDecimal.ONE},
+                {BigDecimal.ONE, BigDecimal.ZERO}
         };
 
         matrixPower(F, n / 2); // space complexity due to the call stack - O(log n)
@@ -43,11 +46,15 @@ public class FibonacciRecursiveMatrixExponentiation implements FibonacciStrategy
         }
     }
 
-    private void multiply(BigInteger[][] F, BigInteger[][] M) { // each multiplication has time comp - O(1)
-        BigInteger x = F[0][0].multiply(M[0][0]).add(F[0][1].multiply(M[1][0]));
-        BigInteger y = F[0][0].multiply(M[0][1]).add(F[0][1].multiply(M[1][1]));
-        BigInteger z = F[1][0].multiply(M[0][0]).add(F[1][1].multiply(M[1][0]));
-        BigInteger w = F[1][0].multiply(M[0][1]).add(F[1][1].multiply(M[1][1]));
+    private void multiply(BigDecimal[][] F, BigDecimal[][] M) { // each multiplication has time comp - O(1)
+        BigDecimal x = F[0][0].multiply(M[0][0], MATH_CONTEXT)
+                .add(F[0][1].multiply(M[1][0], MATH_CONTEXT), MATH_CONTEXT);
+        BigDecimal y = F[0][0].multiply(M[0][1], MATH_CONTEXT)
+                .add(F[0][1].multiply(M[1][1], MATH_CONTEXT), MATH_CONTEXT);
+        BigDecimal z = F[1][0].multiply(M[0][0], MATH_CONTEXT)
+                .add(F[1][1].multiply(M[1][0], MATH_CONTEXT), MATH_CONTEXT);
+        BigDecimal w = F[1][0].multiply(M[0][1], MATH_CONTEXT)
+                .add(F[1][1].multiply(M[1][1], MATH_CONTEXT), MATH_CONTEXT);
 
         F[0][0] = x;
         F[0][1] = y;
