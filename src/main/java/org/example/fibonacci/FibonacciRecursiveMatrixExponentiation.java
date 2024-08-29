@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 
 public class FibonacciRecursiveMatrixExponentiation implements FibonacciStrategy<BigDecimal> {
-    private static final MathContext MATH_CONTEXT = new MathContext(1000);
+    private static final MathContext MATH_CONTEXT = new MathContext(100);
 
     @Override
     public BigDecimal solveFibonacci(int n) {
