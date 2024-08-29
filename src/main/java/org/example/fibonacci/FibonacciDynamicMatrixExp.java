@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class FibonacciDynamicMatrixExp implements FibonacciStrategy<BigInteger> {
-    private static final Map<Integer, BigInteger> memo = new ConcurrentHashMap<>(); // space comp for the memoization map is O(n)
+    private static final Map<Integer, BigInteger> memo = new ConcurrentHashMap<>(); // space comp for the memoization map is O(1)
 
     @Override
     public BigInteger solveFibonacci(int n) {
@@ -51,4 +51,35 @@ public class FibonacciDynamicMatrixExp implements FibonacciStrategy<BigInteger> 
     public Class<BigInteger> getType() {
         return BigInteger.class;
     }
+
+    // Causes OutOfMemoryError at 1000000
+//    private static final Map<Integer, BigInteger> memo = new HashMap<>();
+//
+//    @Override
+//    public BigInteger solveFibonacci(int n) {
+//        if (n <= 1) {
+//            return BigInteger.valueOf(n);
+//        }
+//        return fibonacci(n);
+//    }
+//
+//    private BigInteger fibonacci(int n) {
+//        // Initialize base cases
+//        memo.put(0, BigInteger.ZERO);
+//        memo.put(1, BigInteger.ONE);
+//
+//        // Bottom-up dynamic programming approach
+//        for (int i = 2; i <= n; i++) {
+//            BigInteger fibNMinus1 = memo.get(i - 1);
+//            BigInteger fibNMinus2 = memo.get(i - 2);
+//            memo.put(i, fibNMinus1.add(fibNMinus2));
+//        }
+//
+//        return memo.get(n);
+//    }
+//
+//    @Override
+//    public Class<BigInteger> getType() {
+//        return BigInteger.class;
+//    }
 }

@@ -1,12 +1,11 @@
 package org.example.fibonacci;
 
-import java.lang.ref.WeakReference;
 import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
 
 public class FibonacciDynamic implements FibonacciStrategy<BigInteger> {
-    private static final Map<Integer, WeakReference<BigInteger>> memo = new HashMap<>(); // space comp - O(n), due to the use of WeakReference, the actual space might be less because some entries could be garbage collected
+    private static final Map<Integer, BigInteger> memo = new HashMap<>(); // space comp - O(1)
 
     @Override
     public BigInteger solveFibonacci(int n) {
@@ -14,8 +13,7 @@ public class FibonacciDynamic implements FibonacciStrategy<BigInteger> {
             return BigInteger.valueOf(n);
         }
 
-        WeakReference<BigInteger> weakReference = memo.get(n); // time comp - O(1)
-        BigInteger result = (weakReference != null) ? weakReference.get() : null; // time comp - O(1)
+        BigInteger result = memo.get(n); // time comp - O(1)
 
         if (result != null) {
             return result;
@@ -30,7 +28,7 @@ public class FibonacciDynamic implements FibonacciStrategy<BigInteger> {
             current = next;
         }
 
-        memo.put(n, new WeakReference<>(current));
+        memo.put(n, current);
 
         return current;
     }
