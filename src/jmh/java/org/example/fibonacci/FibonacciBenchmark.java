@@ -3,7 +3,6 @@ package org.example.fibonacci;
 import org.openjdk.jmh.annotations.*;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.concurrent.TimeUnit;
 
 @OutputTimeUnit(TimeUnit.MILLISECONDS)
@@ -23,18 +22,11 @@ public class FibonacciBenchmark {
 //        return fibonacciRecursive.solveFibonacci(n);
 //    }
 
-    // can handle n=10_000_000 (it would take at least 14 minutes)
+    // can handle n=1_000_000_000 (it would take at least 14 minutes)
     @Benchmark
-    public BigInteger testFibonacciIterative() {
+    public BigDecimal testFibonacciIterative() {
         FibonacciIterative fibonacciIterative = new FibonacciIterative();
         return fibonacciIterative.solveFibonacci(n);
-    }
-
-    // can handle n=10_000_000
-    @Benchmark
-    public BigInteger testFibonacciDynamicIterative() {
-        FibonacciDynamicIterative fibonacciDynamicIterative = new FibonacciDynamicIterative();
-        return fibonacciDynamicIterative.solveFibonacci(n);
     }
 
     // can handle n=10_000_000
@@ -53,7 +45,7 @@ public class FibonacciBenchmark {
 
     // can handle n=100_000_000 (result in about 90 seconds)
     @Benchmark
-    public BigInteger testFibonacciRecMatrixExp() {
+    public BigDecimal testFibonacciRecMatrixExp() {
         FibonacciRecursiveMatrixExponentiation fibonacciRecursiveMatrixExponentiation = new FibonacciRecursiveMatrixExponentiation();
         return fibonacciRecursiveMatrixExponentiation.solveFibonacci(n);
     }

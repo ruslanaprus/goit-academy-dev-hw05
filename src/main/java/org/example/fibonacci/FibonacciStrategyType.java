@@ -7,7 +7,7 @@ public enum FibonacciStrategyType {
             return new FibonacciRecursive();
         }
     },
-    ITERATIVE("Iterative - Efficient for calculating Fibonacci numbers up to 5 million") {
+    ITERATIVE("Iterative - Efficient for calculating Fibonacci numbers up to 1000 million") {
         @Override
         public FibonacciStrategy getStrategy() {
             return new FibonacciIterative();

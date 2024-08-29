@@ -1,21 +1,23 @@
 package org.example.fibonacci;
 
-import java.math.BigInteger;
+import java.math.BigDecimal;
 
-public class FibonacciIterative implements FibonacciStrategy<BigInteger> {
+import static org.example.number.Constants.MATH_CONTEXT;
+
+public class FibonacciIterative implements FibonacciStrategy<BigDecimal> {
     @Override
-    public BigInteger solveFibonacci(int n) {
+    public BigDecimal solveFibonacci(int n) {
         if (n <= 1) {
-            return BigInteger.valueOf(n);
+            return BigDecimal.valueOf(n);
         }
 
         // constant space complexity O(1)
-        BigInteger prev1 = BigInteger.ZERO;
-        BigInteger prev2 = BigInteger.ONE;
+        BigDecimal prev1 = BigDecimal.ZERO;
+        BigDecimal prev2 = BigDecimal.ONE;
 
         // constant amount of space O(1) being used, regardless of the size of n
         for (int i = 2; i <= n; i++) { // time comp - O(n)
-            BigInteger current = prev1.add(prev2);
+            BigDecimal current = prev1.add(prev2, MATH_CONTEXT);
             prev1 = prev2;
             prev2 = current;
         }
