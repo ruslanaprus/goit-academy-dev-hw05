@@ -19,14 +19,18 @@ import static org.junit.jupiter.api.Assertions.*;
 class FibonacciDynamicTest {
 
     private static BigInteger getExpectedFibonacci(int n) {
-        switch (n) {
-            case 0: return BigInteger.ZERO;
-            case 1: return BigInteger.ONE;
-            case 2: return BigInteger.ONE;
-            case 10: return BigInteger.valueOf(55);
+        return switch (n) {
+            case 0 -> BigInteger.ZERO;
+            case 1 -> BigInteger.ONE;
+            case 2 -> BigInteger.ONE;
+            case 10 -> BigInteger.valueOf(55);
+            case 50 -> new BigInteger("12586269025");
+            case 70 -> new BigInteger("190392490709135");
+            case 100 -> new BigInteger("354224848179261915075");
+            case 120 -> new BigInteger("5358359254990966640871840");
             // Add more cases as needed
-            default: throw new IllegalArgumentException("Unexpected value: " + n);
-        }
+            default -> throw new IllegalArgumentException("Unexpected value: " + n);
+        };
     }
 
 //    @ParameterizedTest
