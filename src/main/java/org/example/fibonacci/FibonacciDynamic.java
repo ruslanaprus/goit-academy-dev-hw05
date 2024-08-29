@@ -3,9 +3,13 @@ package org.example.fibonacci;
 import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Logger;
 
 public class FibonacciDynamic implements FibonacciStrategy<BigInteger> {
     private static final Map<Integer, BigInteger> memo = new HashMap<>(); // space comp - O(1)
+    private static Logger logger = Logger.getLogger(FibonacciDynamic.class.getName());
+
 //    private static final Map<Integer, BigInteger> memo = new ConcurrentHashMap<>();
 //static {
 //    memo.put(0, BigInteger.ZERO);
@@ -14,6 +18,14 @@ public class FibonacciDynamic implements FibonacciStrategy<BigInteger> {
 
     @Override
     public BigInteger solveFibonacci(int n) {
+        return solveFibonacci(n, null); // Default to null if no TimeUnit is provided
+    }
+
+    @Override
+    public BigInteger solveFibonacci(int n, TimeUnit timeUnit) {
+        long startTime = System.nanoTime();
+        logger.info("Starting computation for Fibonacci number " + n);
+        System.out.println("Starting computation for Fibonacci number " + n);
         if (n <= 1) {
             return BigInteger.valueOf(n);
         }
@@ -21,10 +33,19 @@ public class FibonacciDynamic implements FibonacciStrategy<BigInteger> {
         BigInteger result = memo.get(n); // time comp - O(1)
 
         if (result != null) {
+            logDuration(n, startTime, timeUnit);
             return result;
         }
 
-        return computeFibonacci(n);
+        result = computeFibonacci(n);
+        logDuration(n, startTime, timeUnit);
+//        return computeFibonacci(n);
+
+        long endTime = System.currentTimeMillis();
+        long duration = endTime - startTime;
+//        logger.info("Finished computation for Fibonacci number " + n + " in " + duration + " ms");
+//        System.out.println("Finished computation for Fibonacci number " + n + " in " + duration + " ms");
+        return result;
     }
 
     private BigInteger computeFibonacci(int n) {
@@ -43,6 +64,14 @@ public class FibonacciDynamic implements FibonacciStrategy<BigInteger> {
 
         memo.put(n, current);
         return current;
+    }
+
+    private void logDuration(int n, long startTime, TimeUnit timeUnit) {
+        long endTime = System.nanoTime();
+        long duration = timeUnit.convert(endTime - startTime, TimeUnit.NANOSECONDS);
+        String unit = timeUnit.toString().toLowerCase();
+        logger.info("Finished computation for Fibonacci number " + n + " in " + duration + " " + unit);
+        System.out.println("Finished computation for Fibonacci number " + n + " in " + duration + " " + unit);
     }
 
     @Override
