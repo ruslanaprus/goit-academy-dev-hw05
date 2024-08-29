@@ -32,9 +32,16 @@ public class FibonacciBenchmark {
 
     // can handle n=10_000_000
     @Benchmark
-    public BigInteger testFibonacciDynamic() {
-        FibonacciDynamic fibonacciDynamic = new FibonacciDynamic();
-        return fibonacciDynamic.solveFibonacci(n);
+    public BigInteger testFibonacciDynamicIterative() {
+        FibonacciDynamicIterative fibonacciDynamicIterative = new FibonacciDynamicIterative();
+        return fibonacciDynamicIterative.solveFibonacci(n);
+    }
+
+    // can handle n=10_000_000
+    @Benchmark
+    public BigDecimal testFibonacciDynamicBottomUp() {
+        FibonacciDynamicBottomUp fibonacciDynamicBottomUp = new FibonacciDynamicBottomUp();
+        return fibonacciDynamicBottomUp.solveFibonacci(n);
     }
 
     // calculates 2147483647-th value in Fibonacci sequence in 12 minutes
