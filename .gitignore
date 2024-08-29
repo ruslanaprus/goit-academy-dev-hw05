@@ -178,3 +178,6 @@ Temporary Items
 
 .idea
 target/
+
+.gradle
+build/

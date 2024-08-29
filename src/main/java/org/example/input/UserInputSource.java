@@ -60,15 +60,20 @@ public class UserInputSource implements NumberSource, StrategySource, AutoClosea
 
     public boolean askToContinue() {
         String response;
-        do {
-            logger.info("Do you want to enter another number and choose another strategy? (y/n): ");
-            response = scanner.next();
-            if (!response.equalsIgnoreCase("y") && !response.equalsIgnoreCase("n")) {
-                logger.warn("Invalid input. Please enter 'y' for yes or 'n' for no.");
-            }
-        } while (!response.equalsIgnoreCase("y") && !response.equalsIgnoreCase("n"));
+        while (true) {
+            logger.info("Do you want to enter another number and choose another strategy? (y/n): ");  // Prompt the user without showing default behavior
 
-        return response.equalsIgnoreCase("y");
+            // Read user input, trim whitespace, and convert to lowercase
+            response = scanner.nextLine().trim().toLowerCase();
+
+            if (response.equals("y")) {  // If 'y', return true
+                return true;
+            } else if (response.equals("n")) {  // If 'n', return false
+                return false;
+            } else {
+                logger.warn("Invalid input. Please enter 'y' for yes or 'n' for no.");  // Warn on invalid input
+            }
+        }
     }
 
     @Override
