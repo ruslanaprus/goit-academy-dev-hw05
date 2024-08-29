@@ -2,13 +2,18 @@ package org.example.fibonacci;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
+
 public class FibonacciDynamicBottomUp implements FibonacciStrategy<BigDecimal> {
-    // Causes OutOfMemoryError at more than ≈ 10_000_000
-    private static final Map<Integer, BigDecimal> memo = new HashMap<>();
     private static final MathContext MATH_CONTEXT = new MathContext(100);
+    private static final Map<Integer, BigDecimal> memo = new LinkedHashMap<Integer, BigDecimal>(16, 0.75f, true) {
+        @Override
+        protected boolean removeEldestEntry(Map.Entry<Integer, BigDecimal> eldest) {
+            return size() > 10000000;
+        }
+    };
 
     public BigDecimal solveFibonacci(int n) {
         if (n <= 1) {
