@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class FibonacciMatrixExponentiation implements FibonacciStrategy<BigDecimal> {
     private static final Map<Integer, BigDecimal> memo = new HashMap<>(); // space comp - O(1)
-    private static final MathContext MATH_CONTEXT = new MathContext(100);
+    private static final MathContext MATH_CONTEXT = new MathContext(1000);
 
     public BigDecimal solveFibonacci(int n) {
         if (n <= 1) {

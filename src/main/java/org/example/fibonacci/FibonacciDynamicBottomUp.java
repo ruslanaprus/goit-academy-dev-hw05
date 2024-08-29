@@ -7,7 +7,7 @@ import java.util.Map;
 
 
 public class FibonacciDynamicBottomUp implements FibonacciStrategy<BigDecimal> {
-    private static final MathContext MATH_CONTEXT = new MathContext(100);
+    private static final MathContext MATH_CONTEXT = new MathContext(1000);
     private static final Map<Integer, BigDecimal> memo = new LinkedHashMap<Integer, BigDecimal>(16, 0.75f, true) {
         @Override
         protected boolean removeEldestEntry(Map.Entry<Integer, BigDecimal> eldest) {
