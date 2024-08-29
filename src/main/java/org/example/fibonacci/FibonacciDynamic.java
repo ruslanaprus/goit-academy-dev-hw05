@@ -31,12 +31,12 @@ public class FibonacciDynamic implements FibonacciStrategy<BigInteger> {
         BigInteger prev = BigInteger.ZERO;
         BigInteger current = BigInteger.ONE;
         for (int i = 2; i <= n; i++) { // time comp - O(n) - time complexity is dominated by the loop (O(n))
-            System.out.println("n = " + n);
-            System.out.println("i = " + i);
-            System.out.println("prev = " + prev);
-            System.out.println("current = " + current);
             BigInteger next = prev.add(current); // space comp - O(1)
-            System.out.println("next = " + next);
+            System.out.println("n=" + n + " i=" + i + " prev=" + prev + " current=" + current + " next=" + next);
+//            System.out.println();
+//            System.out.println();
+//            System.out.println();
+//            System.out.println(" next=" + next);
             prev = current;
             current = next;
         }
