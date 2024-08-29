@@ -1,11 +1,10 @@
 package org.example.fibonacci;
 
 import java.math.BigDecimal;
-import java.math.MathContext;
+
+import static org.example.number.Constants.MATH_CONTEXT;
 
 public class FibonacciRecursiveMatrixExponentiation implements FibonacciStrategy<BigDecimal> {
-    private static final MathContext MATH_CONTEXT = new MathContext(100);
-
     @Override
     public BigDecimal solveFibonacci(int n) {
         if (n <= 1) {
@@ -21,11 +20,6 @@ public class FibonacciRecursiveMatrixExponentiation implements FibonacciStrategy
         matrixPower(F, n - 1);
 
         return F[0][0];
-    }
-
-    @Override
-    public Class<BigDecimal> getType() {
-        return BigDecimal.class;
     }
 
     // reduces the problem size by half in each recursive call, time comp - O(log n)

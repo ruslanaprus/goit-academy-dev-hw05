@@ -11,9 +11,4 @@ public class FibonacciRecursive implements FibonacciStrategy<BigInteger> {
 
         return solveFibonacci(n - 1).add(solveFibonacci(n - 2)); // time comp - O(2^n) due to double recursive call
     }
-
-    @Override
-    public Class<BigInteger> getType() {
-        return BigInteger.class;
-    }
 }

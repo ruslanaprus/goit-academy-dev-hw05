@@ -1,14 +1,15 @@
 package org.example.fibonacci;
 
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.util.HashMap;
 import java.util.Map;
 
+import static org.example.number.Constants.MATH_CONTEXT;
+
 public class FibonacciMatrixExponentiation implements FibonacciStrategy<BigDecimal> {
     private static final Map<Integer, BigDecimal> memo = new HashMap<>(); // space comp - O(1)
-    private static final MathContext MATH_CONTEXT = new MathContext(100);
 
+    @Override
     public BigDecimal solveFibonacci(int n) {
         if (n <= 1) {
             return BigDecimal.valueOf(n);
@@ -31,10 +32,6 @@ public class FibonacciMatrixExponentiation implements FibonacciStrategy<BigDecim
         memo.put(n, result);
 
         return result;
-    }
-
-    public Class<BigDecimal> getType() {
-        return BigDecimal.class;
     }
 
     private void power(BigDecimal[][] F, int n) {
