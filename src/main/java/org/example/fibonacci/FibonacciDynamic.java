@@ -25,7 +25,7 @@ public class FibonacciDynamic implements FibonacciStrategy<BigInteger> {
     public BigInteger solveFibonacci(int n, TimeUnit timeUnit) {
         long startTime = System.nanoTime();
 //        logger.info("Starting computation for Fibonacci number " + n);
-        System.out.println("Starting computation for Fibonacci number " + n);
+//        System.out.println("Starting computation for Fibonacci number " + n);
         if (n <= 1) {
             logDuration(n, startTime, timeUnit);
             return BigInteger.valueOf(n);
@@ -34,8 +34,8 @@ public class FibonacciDynamic implements FibonacciStrategy<BigInteger> {
         BigInteger result = memo.get(n); // time comp - O(1)
 
         if (result != null) {
-            System.out.println("GRABBED FROM MEMO:" + n);
-            logDuration(n, startTime, timeUnit);
+//            System.out.println("GRABBED FROM MEMO:" + n);
+            logDuration(n, startTime, timeUnit, "", "memo");
             return result;
         }
 
@@ -69,13 +69,30 @@ public class FibonacciDynamic implements FibonacciStrategy<BigInteger> {
     }
 
     private void logDuration(int n, long startTime, TimeUnit timeUnit) {
+        logDuration(n, startTime, timeUnit, "", "");
+    }
+
+    private void logDuration(int n, long startTime, TimeUnit timeUnit, String prefix, String suffix) {
         long endTime = System.nanoTime();
         long duration = timeUnit.convert(endTime - startTime, TimeUnit.NANOSECONDS);
         String unit = timeUnit.toString().toLowerCase();
         String formattedDuration = String.format("%,d", duration).replace(',', '_');
+
+        StringBuilder message = new StringBuilder();
+        if (prefix != null && !prefix.isEmpty()) {
+            message.append(prefix).append(" ");
+        }
+        message.append("Finished Fibonacci number ").append(n).append(" in ").append(formattedDuration).append(" ").append(unit);
+        if (suffix != null && !suffix.isEmpty()) {
+            message.append(" from:").append(suffix);
+        }
+
+//        logger.info(message.toString());
+        System.out.println(message.toString());
+
 //        logger.info("Finished computation for Fibonacci number " + n + " in " + duration + " " + unit);
 //        System.out.println("Finished computation for Fibonacci number " + n + " in " + duration + " " + unit);
-        System.out.println("Finished computation for Fibonacci number " + n + " in " + formattedDuration + " " + unit);
+//        System.out.println("Finished Fibonacci number " + n + " in " + formattedDuration + " " + unit + " from:" + suffix);
     }
 
     @Override
