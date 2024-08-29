@@ -43,7 +43,8 @@ class FibonacciDynamicTest {
 //    }
 
     @ParameterizedTest
-    @ValueSource(ints = {0, 1, 2, 10, 10, 10, 10, 10, 10, 10, 10})
+//    @ValueSource(ints = {0, 1, 2, 10, 10, 10, 10, 10, 10, 10, 10})
+    @ValueSource(ints = {0, 0, 0, 50, 50, 50, 70, 70, 100, 1000, 100, 70, 70, 50, 50, 0, 0})
     void testSolveFibonacci(int n) {
         FibonacciDynamic fibonacci = new FibonacciDynamic();
         BigInteger result = fibonacci.solveFibonacci(n, TimeUnit.NANOSECONDS);
