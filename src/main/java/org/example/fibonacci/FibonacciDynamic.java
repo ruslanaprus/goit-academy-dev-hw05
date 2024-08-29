@@ -6,6 +6,11 @@ import java.util.Map;
 
 public class FibonacciDynamic implements FibonacciStrategy<BigInteger> {
     private static final Map<Integer, BigInteger> memo = new HashMap<>(); // space comp - O(1)
+//    private static final Map<Integer, BigInteger> memo = new ConcurrentHashMap<>();
+//static {
+//    memo.put(0, BigInteger.ZERO);
+//    memo.put(1, BigInteger.ONE);
+//}
 
     @Override
     public BigInteger solveFibonacci(int n) {
@@ -19,9 +24,12 @@ public class FibonacciDynamic implements FibonacciStrategy<BigInteger> {
             return result;
         }
 
-        BigInteger prev = BigInteger.ZERO; // space comp - O(1)
-        BigInteger current = BigInteger.ONE; // space comp - O(1)
+        return computeFibonacci(n);
+    }
 
+    private BigInteger computeFibonacci(int n) {
+        BigInteger prev = BigInteger.ZERO;
+        BigInteger current = BigInteger.ONE;
         for (int i = 2; i <= n; i++) { // time comp - O(n) - time complexity is dominated by the loop (O(n))
             System.out.println("n = " + n);
             System.out.println("i = " + i);
@@ -34,7 +42,6 @@ public class FibonacciDynamic implements FibonacciStrategy<BigInteger> {
         }
 
         memo.put(n, current);
-
         return current;
     }
 
