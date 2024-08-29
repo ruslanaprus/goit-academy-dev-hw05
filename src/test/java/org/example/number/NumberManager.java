@@ -8,6 +8,7 @@ import org.mockito.Mockito;
 import org.slf4j.Logger;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 class NumberManagerTest {
@@ -37,5 +38,16 @@ class NumberManagerTest {
         ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
         verify(mockLogger, times(1)).debug(eq("NumberManager initialized with NumberSource: {}"), captor.capture());
         assertEquals("NumberSource", captor.getValue().split("\\$")[0]);
+    }
+
+    @Test
+    void testGetNumericValueException() {
+        RuntimeException exception = new RuntimeException("Test exception");
+        when(numberSource.getNumber()).thenThrow(exception);
+
+        RuntimeException thrown = assertThrows(RuntimeException.class, () -> numberManager.getNumericValue());
+        assertEquals("Test exception", thrown.getMessage());
+
+        verify(mockLogger, times(1)).error("Error retrieving number", exception);
     }
 }
