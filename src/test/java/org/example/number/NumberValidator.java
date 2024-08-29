@@ -5,6 +5,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
 import static org.example.number.Constants.MAX_VALUE;
 import static org.example.number.Constants.MIN_VALUE;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -73,5 +76,25 @@ class NumberValidatorTest {
     void testInvalidNumberAtIntegerMinValue() {
         assertFalse(numberValidator.isValidNumber(Integer.MIN_VALUE), "Integer.MIN_VALUE should be invalid");
         verify(logger).warn("Number out of range. Number should be between {} and {}", MIN_VALUE, MAX_VALUE);
+    }
+
+    @Test
+    @DisplayName("Test with default logger and invalid input")
+    void testDefaultLoggerWithInvalidInput() {
+        // Capture the error stream to check logger output
+        ByteArrayOutputStream errContent = new ByteArrayOutputStream();
+        System.setErr(new PrintStream(errContent));
+
+        NumberValidator defaultValidator = new NumberValidator();  // Using default constructor
+
+        // Perform an invalid number check
+        assertFalse(defaultValidator.isValidNumber(MAX_VALUE + 1), "Number above MAX_VALUE should be invalid");
+
+        // Assert that the error stream contains the expected log message
+        String expectedLogMessage = String.format("Number out of range. Number should be between %d and %d", MIN_VALUE, MAX_VALUE);
+        assertTrue(errContent.toString().contains(expectedLogMessage), "Expected log message not found");
+
+        // Restore the original error stream
+        System.setErr(System.err);
     }
 }
