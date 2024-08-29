@@ -13,10 +13,10 @@ public enum FibonacciStrategyType {
             return new FibonacciIterative();
         }
     },
-    DYNAMIC_BOTTOM_UP("Dynamic programming with bottom-up approach - Suitable for calculating Fibonacci numbers up to approximately 10 million") {
+    DYNAMIC("Dynamic programming - Suitable for calculating Fibonacci numbers up to approximately 10 million") {
         @Override
         public FibonacciStrategy getStrategy() {
-            return new FibonacciDynamicBottomUp();
+            return new FibonacciDynamic();
         }
     },
     MATRIX_EXPONENTIATION("Matrix exponentiation - Suitable for calculating Fibonacci numbers up to the maximum integer value") {
@@ -25,7 +25,7 @@ public enum FibonacciStrategyType {
             return new FibonacciMatrixExponentiation();
         }
     },
-    RECURSIVE_MATRIX_EXPONENTIATION("Recursive matrix exponentiation - Highly efficient for calculating large Fibonacci numbers up to the maximum integer value") {
+    RECURSIVE_MATRIX_EXPONENTIATION("Matrix exponentiation with recursion - Highly efficient for calculating large Fibonacci numbers up to the maximum integer value") {
         @Override
         public FibonacciStrategy getStrategy() {
             return new FibonacciRecursiveMatrixExponentiation();
