@@ -19,8 +19,8 @@ public class UserInputSource implements NumberSource, StrategySource, AutoClosea
     }
 
     @Override
-    public int getNumber() {
-        int number;
+    public long getNumber() {
+        long number;
         do {
             logger.info("Please enter a number: ");
             number = getUserInput();
@@ -28,13 +28,13 @@ public class UserInputSource implements NumberSource, StrategySource, AutoClosea
         return number;
     }
 
-    private int getUserInput() {
-        while (!scanner.hasNextInt()) {
+    private long getUserInput() {
+        while (!scanner.hasNextLong()) {
             logger.warn("Invalid input provided by the user.");
             logger.info("Invalid input. Please enter a valid positive number: ");
             scanner.next();
         }
-        return scanner.nextInt();
+        return scanner.nextLong();
     }
 
     @Override

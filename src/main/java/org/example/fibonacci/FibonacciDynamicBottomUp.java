@@ -16,7 +16,7 @@ public class FibonacciDynamicBottomUp implements FibonacciStrategy<BigDecimal> {
     };
 
     @Override
-    public BigDecimal solveFibonacci(int n) {
+    public BigDecimal solveFibonacci(long n) {
         if (n <= 1) {
             return BigDecimal.valueOf(n);
         }

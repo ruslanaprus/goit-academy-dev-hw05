@@ -13,7 +13,7 @@ public class NumberManager {
         logger.debug("NumberManager initialized with NumberSource: {}", numberSource.getClass().getSimpleName());
     }
 
-    public int getNumericValue() {
+    public long getNumericValue() {
         return numberSource.getNumber();
     }
 }

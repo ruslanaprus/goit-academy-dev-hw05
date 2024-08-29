@@ -20,7 +20,7 @@ public class AppLauncher {
                 StrategySource strategySource = inputSource;
 
                 NumberManager numberManager = new NumberManager(numberSource);
-                int number = numberManager.getNumericValue();
+                long number = numberManager.getNumericValue();
 
                 FibonacciStrategy<?> strategy = strategySource.getStrategy();
 
@@ -36,7 +36,7 @@ public class AppLauncher {
         }
     }
 
-    public static <T extends Number> void launch(int number, FibonacciStrategy<T> strategy) {
+    public static <T extends Number> void launch(long number, FibonacciStrategy<T> strategy) {
         try {
             T result = strategy.solveFibonacci(number);
             logger.info("Using {}: The value in Fibonacci sequence at the {}-th position is {}",
