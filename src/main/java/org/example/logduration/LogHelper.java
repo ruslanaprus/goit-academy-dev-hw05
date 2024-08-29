@@ -2,7 +2,6 @@ package org.example.logduration;
 
 import java.util.concurrent.TimeUnit;
 import org.slf4j.Logger;
-//import org.slf4j.LoggerFactory;
 
 public class LogHelper {
 
@@ -10,6 +9,10 @@ public class LogHelper {
 
     public LogHelper(Logger logger) {
         this.logger = logger;
+    }
+
+    public void logDuration(int n, long startTime) {
+        logDuration(n, startTime, TimeUnit.MILLISECONDS, "", "");
     }
 
     public void logDuration(int n, long startTime, TimeUnit timeUnit) {

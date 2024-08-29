@@ -74,18 +74,18 @@ class FibonacciDynamicTest {
 //        executor.shutdown();
 //    }
 
-//    @Test
-//    @DisplayName("Fibonacci:5")
-//    void testSolveFibonacci() {
-//        int input = 5;
-//        FibonacciDynamic fibonacci = new FibonacciDynamic();
-//        BigInteger result = fibonacci.solveFibonacci(input);
-//        assertEquals(BigInteger.valueOf(5), result);
-//    }
+    @Test
+    @DisplayName("Fibonacci:5=5")
+    void testSolveFibonacci() {
+        int input = 5;
+        FibonacciDynamic fibonacci = new FibonacciDynamic();
+        BigInteger result = fibonacci.solveFibonacci(input);
+        assertEquals(BigInteger.valueOf(5), result);
+    }
 
     @Test
     @DisplayName("Fibonacci:6=8")
-    @Disabled
+//    @Disabled
     void testSolveFibonacciSix() {
         int input = 6;
         FibonacciDynamic fibonacci = new FibonacciDynamic();

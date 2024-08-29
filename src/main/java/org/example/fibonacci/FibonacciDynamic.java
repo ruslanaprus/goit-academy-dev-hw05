@@ -21,7 +21,7 @@ private static Logger logger = LoggerFactory.getLogger(FibonacciDynamic.class.ge
 
     @Override
     public BigInteger solveFibonacci(int n) {
-        return solveFibonacci(n, null); // Default to null if no TimeUnit is provided
+        return solveFibonacci(n, TimeUnit.MILLISECONDS); // Default to null if no TimeUnit is provided
     }
 
     @Override
