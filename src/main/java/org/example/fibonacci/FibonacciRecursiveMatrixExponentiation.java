@@ -20,11 +20,6 @@ public class FibonacciRecursiveMatrixExponentiation implements FibonacciStrategy
         return F[0][0];
     }
 
-    @Override
-    public Class<BigInteger> getType() {
-        return BigInteger.class;
-    }
-
     // reduces the problem size by half in each recursive call, time comp - O(log n)
     private void matrixPower(BigInteger[][] F, int n) {
         if (n == 1 || n == 0) return;

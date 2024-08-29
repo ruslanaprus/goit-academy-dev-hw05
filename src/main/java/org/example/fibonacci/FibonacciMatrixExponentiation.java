@@ -32,10 +32,6 @@ public class FibonacciMatrixExponentiation implements FibonacciStrategy<BigDecim
         return result;
     }
 
-    public Class<BigDecimal> getType() {
-        return BigDecimal.class;
-    }
-
     private void power(BigDecimal[][] F, int n) {
         BigDecimal[][] M = {
                 {BigDecimal.ONE, BigDecimal.ONE},

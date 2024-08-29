@@ -22,9 +22,4 @@ public class FibonacciIterative implements FibonacciStrategy<BigInteger> {
 
         return prev2;
     }
-
-    @Override
-    public Class<BigInteger> getType() {
-        return BigInteger.class;
-    }
 }

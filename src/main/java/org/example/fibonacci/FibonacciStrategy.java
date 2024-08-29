@@ -9,6 +9,4 @@ public interface FibonacciStrategy<T extends Number> {
     default T solveFibonacci(int n, TimeUnit timeUnit) {
         return solveFibonacci(n); // Default implementation calls the single-parameter method
     }
-
-    Class<T> getType();
 }

@@ -47,11 +47,6 @@ public class FibonacciDynamicMatrixExp implements FibonacciStrategy<BigInteger> 
         return C;
     }
 
-    @Override
-    public Class<BigInteger> getType() {
-        return BigInteger.class;
-    }
-
     // Causes OutOfMemoryError at 1000000
 //    private static final Map<Integer, BigInteger> memo = new HashMap<>();
 //
