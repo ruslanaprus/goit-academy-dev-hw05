@@ -13,7 +13,7 @@ public enum FibonacciStrategyType {
             return new FibonacciIterative();
         }
     },
-    DYNAMIC("Dynamic programming - Suitable for calculating Fibonacci numbers up to approximately 10 million") {
+    DYNAMIC("Dynamic programming - Suitable for calculating Fibonacci numbers up to approximately 500 million") {
         @Override
         public FibonacciStrategy getStrategy() {
             return new FibonacciDynamic();

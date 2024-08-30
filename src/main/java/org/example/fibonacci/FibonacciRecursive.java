@@ -4,7 +4,7 @@ import java.math.BigInteger;
 
 public class FibonacciRecursive implements FibonacciStrategy<BigInteger> {
     @Override
-    public BigInteger solveFibonacci(long n) {
+    public BigInteger solveFibonacci(int n) {
         if (n <= 1) { // space comp - O(n), maximum depth of the recursion is n, the function continues to call itself with decrements of n until n reaches 1 or 0.
             return BigInteger.valueOf(n);
         }

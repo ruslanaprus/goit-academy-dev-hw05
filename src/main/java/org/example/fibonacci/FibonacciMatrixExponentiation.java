@@ -7,10 +7,10 @@ import java.util.Map;
 import static org.example.number.Constants.MATH_CONTEXT;
 
 public class FibonacciMatrixExponentiation implements FibonacciStrategy<BigDecimal> {
-    private static final Map<Long, BigDecimal> memo = new HashMap<>(); // space comp - O(1)
+    private static final Map<Integer, BigDecimal> memo = new HashMap<>(); // space comp - O(1)
 
     @Override
-    public BigDecimal solveFibonacci(long n) {
+    public BigDecimal solveFibonacci(int n) {
         if (n <= 1) {
             return BigDecimal.valueOf(n);
         }
@@ -34,7 +34,7 @@ public class FibonacciMatrixExponentiation implements FibonacciStrategy<BigDecim
         return result;
     }
 
-    private void power(BigDecimal[][] F, long n) {
+    private void power(BigDecimal[][] F, int n) {
         BigDecimal[][] M = {
                 {BigDecimal.ONE, BigDecimal.ONE},
                 {BigDecimal.ONE, BigDecimal.ZERO}

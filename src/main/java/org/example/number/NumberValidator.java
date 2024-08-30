@@ -9,7 +9,7 @@ import static org.example.number.Constants.MIN_VALUE;
 public class NumberValidator {
     private static final Logger logger = LoggerFactory.getLogger(NumberValidator.class);
 
-    public boolean isValidNumber(long number) {
+    public boolean isValidNumber(int number) {
         if (number >= MIN_VALUE && number <= MAX_VALUE) {
             return true;
         } else {

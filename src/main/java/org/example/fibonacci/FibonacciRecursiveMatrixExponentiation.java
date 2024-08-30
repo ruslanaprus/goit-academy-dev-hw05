@@ -6,7 +6,7 @@ import static org.example.number.Constants.MATH_CONTEXT;
 
 public class FibonacciRecursiveMatrixExponentiation implements FibonacciStrategy<BigDecimal> {
     @Override
-    public BigDecimal solveFibonacci(long n) {
+    public BigDecimal solveFibonacci(int n) {
         if (n <= 1) {
             return BigDecimal.valueOf(n);
         }
@@ -23,7 +23,7 @@ public class FibonacciRecursiveMatrixExponentiation implements FibonacciStrategy
     }
 
     // reduces the problem size by half in each recursive call, time comp - O(log n)
-    private void matrixPower(BigDecimal[][] F, long n) {
+    private void matrixPower(BigDecimal[][] F, int n) {
         if (n == 1 || n == 0) return;
 
         // space comp - O(1)
@@ -32,7 +32,7 @@ public class FibonacciRecursiveMatrixExponentiation implements FibonacciStrategy
                 {BigDecimal.ONE, BigDecimal.ZERO}
         };
 
-        matrixPower(F, n / 2); // space complexity due to the call stack - O(log n)
+        matrixPower(F, n >> 1); // space complexity due to the call stack - O(log n)
         multiply(F, F);
 
         if (n % 2 != 0) {

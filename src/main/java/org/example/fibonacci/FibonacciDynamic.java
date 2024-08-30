@@ -8,15 +8,15 @@ import static org.example.number.Constants.MATH_CONTEXT;
 
 
 public class FibonacciDynamic implements FibonacciStrategy<BigDecimal> {
-    private static final Map<Integer, BigDecimal> memo = new LinkedHashMap<Integer, BigDecimal>(16, 0.75f, true) {
+    private static final Map<Integer, BigDecimal> memo = new LinkedHashMap<Integer, BigDecimal>(8, 0.75f, true) {
         @Override
         protected boolean removeEldestEntry(Map.Entry<Integer, BigDecimal> eldest) {
-            return size() > 10000000;
+            return size() > 5;
         }
     };
 
     @Override
-    public BigDecimal solveFibonacci(long n) {
+    public BigDecimal solveFibonacci(int n) {
         if (n <= 1) {
             return BigDecimal.valueOf(n);
         }
