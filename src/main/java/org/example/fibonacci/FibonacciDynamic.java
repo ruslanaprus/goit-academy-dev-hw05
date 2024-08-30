@@ -25,9 +25,9 @@ public class FibonacciDynamic implements FibonacciStrategy<BigDecimal> {
         memo.put(1, BigDecimal.ONE);
 
         for (int i = 2; i <= n; i++) {
-            BigDecimal fibNMinus1 = memo.get(i - 1);
-            BigDecimal fibNMinus2 = memo.get(i - 2);
-            memo.put(i, fibNMinus1.add(fibNMinus2, MATH_CONTEXT));
+            BigDecimal previousFib = memo.get(i - 1);
+            BigDecimal twoStepsBackFib = memo.get(i - 2);
+            memo.put(i, previousFib.add(twoStepsBackFib, MATH_CONTEXT));
         }
 
         return memo.get(n);
