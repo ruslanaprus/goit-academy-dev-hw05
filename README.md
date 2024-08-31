@@ -1,6 +1,6 @@
 # Fibonacci Calculator
 
-This Java project is a flexible command-line application designed to compute Fibonacci numbers using various algorithms. The project is built to demonstrate different approaches to solving the Fibonacci sequence problem.
+This Java project is a flexible command-line application designed to compute Fibonacci numbers using various algorithms. The project is built to demonstrate different approaches to solving the Fibonacci sequence problem. This is solution for GoIT Academy Module 2.05 [Algorithm Complexity] hometask.
 
 ## Project Structure
 
@@ -145,15 +145,6 @@ classDiagram
 ### Interactive User Interface
 - **User Input**: The application prompts users to enter a number and select a calculation strategy, making it easy to use and experiment with different approaches.
 
-- **Error Handling**: The application includes robust input validation and error handling to ensure a smooth user experience. It checks for valid numbers within an acceptable range and provides clear feedback on any errors.
-
-### Use Case Recommendations
-- **Educational Purposes**: The Recursive strategy is simple and easy to understand, making it ideal for teaching and learning purposes.
-
-- **Moderate-Size Calculations**: The Iterative and Dynamic Programming strategies are well-suited for applications needing to compute Fibonacci numbers in the range of millions to billions, where performance and memory efficiency are crucial.
-
-- **Large-Scale Calculations**: For scenarios requiring the computation of very large Fibonacci numbers, the Recursive Matrix Exponentiation strategy are recommended due to their logarithmic time complexity and support for high precision.
-
 ## Usage
 
 ### Steps to Build
@@ -184,6 +175,31 @@ This will execute the main method in `AppLauncher.java`, and you should see the 
 2. Choose a Fibonacci calculation strategy from the provided options.
 3. View the result along with the time taken to compute it.
 4. Decide whether to perform another calculation or exit the program.
+
+### Benchmarking with JMH
+
+This project evaluates different implementations of the Fibonacci sequence using the Java Microbenchmark Harness (JMH). The setup is managed with Gradle, and the benchmarks are configured to assess performance metrics such as execution time and garbage collection overhead.
+
+To run the benchmarks, use the JMH task by executing the following command:
+```shell
+./gradlew jmh
+```
+
+This will execute the benchmarks for the specified Fibonacci implementations, and the results will be saved as a CSV file located at `build/reports/jmh/result.csv`. The `result.csv` file will include performance data such as execution time and other profiled metrics.
+
+To save the report as a JSON file, modify the JMH task configuration in the `build.gradle` file:
+```shell
+def resultFile = new File((File) project.reportsDir, 'jmh/result.json')
+args '-rf', 'json'
+```
+
+Key metrics in the report include:
+
+1. **`Score`**: The main performance metric of the benchmark. In `thrpt` mode, it represents the number of operations performed per millisecond (ops/ms).
+2. **`gc.alloc.rate`**: The memory allocation rate during the benchmark, measured in megabytes per second (MB/sec). This indicates the amount of memory being used by the program.
+3. **`gc.alloc.rate.norm`**: The normalised allocation rate, measured in bytes per operation (B/op). It indicates the average number of bytes allocated per Fibonacci calculation.
+4. **`gc.count`**: The number of garbage collection events that occurred during the benchmark. This shows how frequently the JVM's garbage collector was triggered.
+5. **`gc.time`**: The total time spent on garbage collection, measured in milliseconds (ms). This indicates how much time the JVM used to clean up unused objects.
 
 ## <u>Description of Implemented Algorithms</u>:
 
