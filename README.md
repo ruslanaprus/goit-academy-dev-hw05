@@ -1,3 +1,192 @@
+# Fibonacci Calculator
+
+This Java project is a flexible command-line application designed to compute Fibonacci numbers using various algorithms. The project is built to demonstrate different approaches to solving the Fibonacci sequence problem.
+
+## Project Structure
+
+```mermaid
+classDiagram
+    direction BT
+    class AppLauncher {
+        + launch(int number, FibonacciStrategy~T~ strategy) void
+        + main(String[] args) void
+    }
+
+    class Constants {
+        <<static>>
+        +int MIN_VALUE
+        +int MAX_VALUE
+        +MathContext MATH_CONTEXT
+    }
+
+    class FibonacciRecursive {
+        + solveFibonacci(int n) BigInteger
+    }
+
+    class FibonacciIterative {
+        + solveFibonacci(int n) BigDecimal
+    }
+
+    class FibonacciDynamic {
+        +solveFibonacci(int n) BigDecimal
+        -Map~Integer, BigDecimal~ memo
+    }
+
+    class FibonacciMatrixExponentiation {
+        +solveFibonacci(int n) BigDecimal
+        -Map~Integer, BigDecimal~ memo
+        -power(BigDecimal[][] F, int n) void
+        -multiply(BigDecimal[][] F, BigDecimal[][] M) void
+    }
+
+    class FibonacciRecursiveMatrixExponentiation {
+        + solveFibonacci(int n) BigDecimal
+        - matrixPower(BigDecimal[][] F, int n) void
+        - multiply(BigDecimal[][] F, BigDecimal[][] M) void
+    }
+
+    class FibonacciStrategy~T~ {
+        <<Interface>>
+        +~T~ solveFibonacci(int n) ~T~
+    }
+
+    class FibonacciStrategyType {
+        <<enumeration>>
+        RECURSIVE
+        ITERATIVE
+        DYNAMIC
+        MATRIX_EXPONENTIATION
+        RECURSIVE_MATRIX_EXPONENTIATION
+        - description String
+        + getDescription() String
+        + getStrategy() FibonacciStrategy
+    }
+
+    class NumberManager {
+        - NumberSource numberSource
+        + NumberManager(NumberSource numberSource)
+        + getNumericValue() int
+    }
+
+    class NumberSource {
+        <<Interface>>
+        + getNumber() int
+    }
+
+    class NumberValidator {
+        + isValidNumber(int n) boolean
+    }
+
+    class StrategySource {
+        <<Interface>>
+        + getStrategy() ~T~ FibonacciStrategy~T~
+    }
+
+    class UserInputSource {
+        - numberValidator NumberValidator
+        - scanner Scanner
+        + getNumber() int
+        + getStrategy() FibonacciStrategy
+        + askToContinue() boolean
+        + close() void
+        - getUserInput() int
+    }
+
+    AppLauncher  -->  NumberManager : «uses»
+    AppLauncher  -->  UserInputSource : «uses»
+    AppLauncher ..> FibonacciStrategy : «create»
+
+    FibonacciDynamic  --|>   FibonacciStrategy~T~ : «implements»
+    FibonacciIterative  --|>   FibonacciStrategy~T~ : «implements»
+    FibonacciMatrixExponentiation  --|>   FibonacciStrategy~T~ : «implements»
+    FibonacciRecursive  --|>   FibonacciStrategy~T~ : «implements»
+    FibonacciRecursiveMatrixExponentiation  --|>   FibonacciStrategy~T~ : «implements»
+
+    FibonacciStrategyType ..> FibonacciStrategy : Dependency
+    FibonacciStrategyType  ..>  FibonacciRecursive : «create»
+    FibonacciStrategyType  ..>  FibonacciIterative : «create»
+    FibonacciStrategyType  ..>  FibonacciDynamic : «create»
+    FibonacciStrategyType  ..>  FibonacciMatrixExponentiation : «create»
+    FibonacciStrategyType  ..>  FibonacciRecursiveMatrixExponentiation : «create»
+    FibonacciStrategy <.. StrategySource : Dependency
+
+    NumberManager "1" *--> "numberSource 1" NumberSource
+
+    UserInputSource  --|>  NumberSource : «implements»
+    UserInputSource  ..>  NumberValidator : «create»
+    UserInputSource "1" *--> "numberValidator 1" NumberValidator
+    UserInputSource  --|>  StrategySource : «implements»
+```
+
+## Key Features
+
+### Multiple Independent Strategies
+- **[Recursive](#recursive-approach-to-fibonacci-sequence)**: A simple, straightforward approach, ideal for educational purposes and small Fibonacci numbers (up to 50). This method, while easy to understand, is not suitable for large numbers due to its exponential time complexity.
+
+- **[Iterative](#iterative-approach-to-fibonacci-sequence)**: Efficient for medium-sized Fibonacci numbers (up to 1 billion). This method has a linear time complexity and constant space complexity, making it faster and more memory-efficient than the recursive method.
+
+- **[Dynamic Programming](#dynamic-programming-with-bounded-memoization-for-fibonacci-sequence)**: Suitable for calculating Fibonacci numbers up to approximately 500 million. It uses memoization to store intermediate results, reducing the number of calculations and significantly improving performance.
+
+- **[Matrix Exponentiation](#matrix-exponentiation-for-fibonacci-sequence)**: Optimal for large Fibonacci numbers up to the maximum integer value. This method has a logarithmic time complexity, making it highly efficient for very large inputs.
+
+- **[Recursive Matrix Exponentiation](#matrix-exponentiation-with-recursive-divide-and-conquer-approach)**: Combines the efficiency of matrix exponentiation with recursion to handle extremely large Fibonacci numbers with maximum precision. This approach is ideal for scenarios requiring high-performance calculations over a wide range of inputs.
+
+### High Precision with Calculation of Large Numbers in Fibonacci Sequence
+- **BigInteger and BigDecimal Support**: The project utilizes `BigInteger` and `BigDecimal` classes to handle extremely large Fibonacci numbers and ensure precise calculations, even when the numbers exceed the storage capacity of primitive data types like `int` or `long`.
+
+- **Optimized Storage**: The use of `BigInteger` and `BigDecimal` allows the program to store and manipulate large numbers without losing precision, making it suitable for scientific and financial applications where exact results are critical.
+
+### Precision-Dependent Calculations
+- The precision of the calculations can be configured using `MathContext`, allowing the user to define the level of precision required for the `BigDecimal` operations. This feature is particularly useful for applications requiring fine-tuned precision control.
+
+### Performance Metrics
+- The application logs the time taken to compute each Fibonacci number, helping users understand the performance implications of each strategy. This is particularly useful for comparing the efficiency of different algorithms.
+
+### Interactive User Interface
+- **User Input**: The application prompts users to enter a number and select a calculation strategy, making it easy to use and experiment with different approaches.
+
+- **Error Handling**: The application includes robust input validation and error handling to ensure a smooth user experience. It checks for valid numbers within an acceptable range and provides clear feedback on any errors.
+
+### Use Case Recommendations
+- **Educational Purposes**: The Recursive strategy is simple and easy to understand, making it ideal for teaching and learning purposes.
+
+- **Moderate-Size Calculations**: The Iterative and Dynamic Programming strategies are well-suited for applications needing to compute Fibonacci numbers in the range of millions to billions, where performance and memory efficiency are crucial.
+
+- **Large-Scale Calculations**: For scenarios requiring the computation of very large Fibonacci numbers, the Recursive Matrix Exponentiation strategy are recommended due to their logarithmic time complexity and support for high precision.
+
+## Usage
+
+### Steps to Build
+
+To build the project, follow these steps:
+
+1. **Clone the repository**:
+```shell
+git clone git@github.com:ruslanaprus/goit-academy-dev-hw05.git
+cd goit-academy-dev-hw05
+```
+2. **Build the project**:
+```shell
+./gradlew clean build
+```
+This command will use the gradle wrapper to ensure that the correct version of Gradle is used.
+
+### Running the Application
+After creating the fat JAR, you can run the application using the following command:
+```shell
+java -jar build/libs/fibonacci.jar
+```
+
+This will execute the main method in `AppLauncher.java`, and you should see the prompt to enter the number.
+
+### Follow the Prompts
+1. Enter the number for which you want to calculate the Fibonacci value.
+2. Choose a Fibonacci calculation strategy from the provided options.
+3. View the result along with the time taken to compute it.
+4. Decide whether to perform another calculation or exit the program.
+
+## <u>Description of Implemented Algorithms</u>:
+
 ## Recursive Approach to Fibonacci Sequence
 
 - **Time complexity**: `O(2^n)`
