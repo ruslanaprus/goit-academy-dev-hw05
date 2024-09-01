@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 @State(Scope.Thread)
 public class FibonacciBenchmark {
 
-    @Param({"100", "1000"})
+    @Param({"1000", "10000"})
     private int n;
 
     // don't use n>50 for this benchmark
@@ -43,7 +43,7 @@ public class FibonacciBenchmark {
         return fibonacciMatrixExponentiation.solveFibonacci(n);
     }
 
-    // can handle n=100_000_000 (result in about 90 seconds)
+    // can handle numbers up to max integer quickly due to divide and conquer nature
     @Benchmark
     public BigDecimal testFibonacciRecMatrixExp() {
         FibonacciRecursiveMatrixExponentiation fibonacciRecursiveMatrixExponentiation = new FibonacciRecursiveMatrixExponentiation();
