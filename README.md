@@ -140,10 +140,10 @@ classDiagram
 - The precision of the calculations can be configured using `MathContext`, allowing the user to define the level of precision required for the `BigDecimal` operations. This feature is particularly useful for applications requiring fine-tuned precision control.
 
 ### Performance Metrics
-- The application logs the time taken to compute each Fibonacci number, helping users understand the performance implications of each strategy. This is particularly useful for comparing the efficiency of different algorithms.
-
+- **Execution Time Logging**: The application logs the time taken to compute each Fibonacci number, helping users understand the performance implications of each strategy. This is particularly useful for comparing the efficiency of different algorithms.
+- **Benchmarking with JMH**: The project includes benchmarks using the Java Microbenchmark Harness (JMH) to measure and compare the performance of various Fibonacci implementations. The benchmarks provide detailed metrics such as execution time, garbage collection rates, and memory usage, offering deeper insights into the performance characteristics of each algorithm.
 ### Interactive User Interface
-- **User Input**: The application prompts users to enter a number and select a calculation strategy, making it easy to use and experiment with different approaches.
+- The application prompts users to enter a number and select a calculation strategy, making it easy to use and experiment with different approaches.
 
 ## Usage
 
